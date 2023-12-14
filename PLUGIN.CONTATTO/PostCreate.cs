@@ -27,8 +27,7 @@ namespace PLUGIN.CONTATTO
                 {
                     Entity target = (Entity)context.InputParameters["Target"];
 
-                    if (true)  // if da gestire
-                    {
+                   
 
                         Entity evento = new Entity("aicgusto_evento");
 
@@ -41,7 +40,6 @@ namespace PLUGIN.CONTATTO
                                             "    <order attribute='aicgusto_data' descending='false' />" +
                                             "    <filter type='and'>" +
                                             "      <condition attribute='aicgusto_data' operator='this-month' />" +
-                                            "      < condition attribute = 'aicgusto_data' operator= 'on-or-after' value = " + DateTime.Now + " ' />" +
                                             "    </filter>" +
                                             "  </entity>" +
                                             "</fetch>";
@@ -67,8 +65,6 @@ namespace PLUGIN.CONTATTO
                         Guid partecipazioneId = service.Create(partecipazione);
                         tracingService.Trace($"dopo aggiunta attributi partecipazione {evento.Id} ");
 
-
-                    }
 
                 }
             }
