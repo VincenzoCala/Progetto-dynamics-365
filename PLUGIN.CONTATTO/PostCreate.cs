@@ -25,12 +25,9 @@ namespace PLUGIN.CONTATTO
             {
                 if (context.InputParameters.Contains("Target") && context.InputParameters["Target"] is Entity)
                 {
-                    Entity target = (Entity)context.InputParameters["Target"];
-
-                   
+                        Entity target = (Entity)context.InputParameters["Target"];
 
                         Entity evento = new Entity("aicgusto_evento");
-
 
                         string fetchXml = "<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>" +
                                             "  <entity name='aicgusto_evento'>" +
@@ -49,11 +46,9 @@ namespace PLUGIN.CONTATTO
                         {
                             evento = eventColl.Entities.First();
                         }
-
-                        //creazione partecipazione riferita al cliente
+                        // variabili da inserire nella partecipazione
                         string nomeP = target.GetAttributeValue<string>("lastname");
                         string thisMonth = DateTime.Now.ToString("MMMM", new CultureInfo("it-IT"));
-                        tracingService.Trace($"dopo  fetch {nomeP} \n  {evento.Id} ");
                         string nomePartecip = $"Partecipazione di {thisMonth} del signor {nomeP}";
 
                         //creazione partecipazione riferita al cliente
@@ -61,11 +56,7 @@ namespace PLUGIN.CONTATTO
                         partecipazione.Attributes.Add("aicgusto_name", nomePartecip);
                         partecipazione.Attributes.Add("aicgusto_evento", new EntityReference(target.LogicalName, evento.Id));
                         partecipazione.Attributes.Add("aicgusto_contatto", new EntityReference(target.LogicalName, target.Id));
-                        tracingService.Trace($"dopo aggiunta attributi partecipazione {evento.Id} ");
                         Guid partecipazioneId = service.Create(partecipazione);
-                        tracingService.Trace($"dopo aggiunta attributi partecipazione {evento.Id} ");
-
-
                 }
             }
             catch (Exception e)
